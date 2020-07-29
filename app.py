@@ -61,6 +61,33 @@ def get_retencion_cuit(cuit):
     response = json_util.dumps(retencion)
     return Response(response, mimetype="application/json")
 
+@app.route('/retenciones/<id>', methods=['DELETE'])
+def delete_retencion(id):
+    mongo.db.retenciones.delete_one({'_id': ObjectId(id)})
+    response = jsonify({'message': 'Retencion' + id + ' Deleted Successfully'})
+    response.status_code = 200
+    return response
+
+
+@app.route('/retenciones/<_id>', methods=['PUT'])
+def update_user(_id):
+    fecha = request.json['fecha']
+    cuit = request.json['CUIT']
+    tipoRetencion = request.json['tipoRetencion']
+    nroConstancia = request.json['nroConstancia']
+    importe = reques.json['importe']
+
+    if fecha and cuit and nroConstancia and _id:        
+        mongo.db.users.update_one(
+            {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
+            {'$set': {'fecha': decha, 'CUIT': cuit, 'tipoRetencion': tipoRetencion, 'nroConstancia': nroConstancia, 'importe': importe}})
+        response = jsonify({'message': 'retencion' + _id + 'Updated Successfuly'})
+        response.status_code = 200
+        return response
+    else:
+      return not_found()
+
+
 # Testing Route
 @app.route('/ping', methods=['GET'])
 def ping():
