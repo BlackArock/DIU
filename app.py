@@ -100,7 +100,7 @@ def create_percepcion():
     importe = request.json['importe']
     if fecha and cuit and nroComprobante:
         id = mongo.db.percepciones.insert(
-            {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'tipoComprobante': tipoCOmprobante,'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe})
+            {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'tipoComprobante': tipoComprobante,'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe})
         response = jsonify({
             '_id': str(id),
             'fecha': fecha,            
