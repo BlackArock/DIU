@@ -75,7 +75,7 @@ def update_retenciones(_id):
     cuit = request.json['cuit']
     tipoRetencion = request.json['tipoRetencion']
     nroConstancia = request.json['nroConstancia']
-    importe = reques.json['importe']
+    importe = request.json['importe']
 
     if fecha and cuit and nroConstancia and _id:        
         mongo.db.retenciones.update_one(
@@ -150,8 +150,8 @@ def update_percepcion(_id):
     tipoPercepcion = request.json['tipoPercepcion']
     tipoComprobante = reques.json['tipoComprobante']
     nroComprobante = request.json['nroComprobante']
-    letra = reques.json['letra']
-    importe = reques.json['importe']
+    letra = request.json['letra']
+    importe = request.json['importe']
 
     if fecha and cuit and nroComprobante and _id:        
         mongo.db.percepciones.update_one(
