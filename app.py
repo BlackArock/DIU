@@ -19,10 +19,10 @@ mongo = PyMongo(app)
 
 
 @app.route('/retenciones', methods=['POST'])
-def create_retenciones():
+def create_retencion():
     fecha = request.json['fecha']
     tipoRetencion =  request.json['tipoRetencion']
-    cuit = request.json['CUIT']
+    cuit = request.json['cuit']
     nroConstancia = request.json['nroConstancia']
     importe = request.json['importe']
     if fecha and cuit and nroConstancia:
@@ -57,7 +57,7 @@ def get_retencion(id):
 @app.route('/retenciones/cuit/<cuit>', methods=['GET'])
 def get_retencion_cuit(cuit):
     print(cuit)
-    retencion = mongo.db.retenciones.find({'CUIT': str(cuit) })
+    retencion = mongo.db.retenciones.find({'cuit': str(cuit) })
     response = json_util.dumps(retencion)
     return Response(response, mimetype="application/json")
 
@@ -70,22 +70,99 @@ def delete_retencion(id):
 
 
 @app.route('/retenciones/<_id>', methods=['PUT'])
-def update_user(_id):
+def update_retenciones(_id):
     fecha = request.json['fecha']
-    cuit = request.json['CUIT']
+    cuit = request.json['cuit']
     tipoRetencion = request.json['tipoRetencion']
     nroConstancia = request.json['nroConstancia']
     importe = reques.json['importe']
 
     if fecha and cuit and nroConstancia and _id:        
-        mongo.db.users.update_one(
+        mongo.db.retenciones.update_one(
             {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
-            {'$set': {'fecha': decha, 'CUIT': cuit, 'tipoRetencion': tipoRetencion, 'nroConstancia': nroConstancia, 'importe': importe}})
-        response = jsonify({'message': 'retencion' + _id + 'Updated Successfuly'})
+            {'$set': {'fecha': fecha, 'cuit': cuit, 'tipoRetencion': tipoRetencion, 'nroConstancia': nroConstancia, 'importe': importe}})
+        response = jsonify({'message': 'Retencion' + _id + 'Updated Successfuly'})
         response.status_code = 200
         return response
     else:
       return not_found()
+
+# Percepciones !
+
+@app.route('/percepciones', methods=['POST'])
+def create_percepcion():
+    fecha = request.json['fecha']
+    cuit = request.json['cuit']
+    tipoPercepcion =  request.json['tipoPercepcion']
+    tipoComprobante = reques.json['tipoComprobante']
+    nroComprobante = request.json['nroComprobante']
+    letra = request.json['letra']
+    importe = request.json['importe']
+    if fecha and cuit and nroComprobante:
+        id = mongo.db.percepciones.insert(
+            {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'tipoComprobante': tipoCOmprobante,'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe})
+        response = jsonify({
+            '_id': str(id),
+            'fecha': fecha,            
+            'cuit': cuit,
+            'tipoPercepcion': tipoPercepcion,
+            'tipoComprobante': tipoComprobante,
+            'nroComprobante': nroComprobante,
+            'letra' : letra,
+            'importe': importe})
+        response.status_code = 201
+        return response
+    else:
+        return not_found()
+    
+@app.route('/percepciones', methods=['GET'])
+def get_percepciones():
+    percepciones = mongo.db.percepciones.find()
+    response = json_util.dumps(percepciones)
+    return Response(response, mimetype="application/json")
+
+
+@app.route('/percepciones/<id>', methods=['GET'])
+def get_percepcion(id):
+    print(id)
+    percepcion = mongo.db.percepciones.find_one({'_id': ObjectId(id), })
+    response = json_util.dumps(percepcion)
+    return Response(response, mimetype="application/json")
+
+@app.route('/percepciones/cuit/<cuit>', methods=['GET'])
+def get_percepcion_cuit(cuit):
+    print(cuit)
+    percepcion = mongo.db.percepcion.find({'cuit': str(cuit) })
+    response = json_util.dumps(percepcion)
+    return Response(response, mimetype="application/json")
+
+@app.route('/percepciones/<id>', methods=['DELETE'])
+def delete_percepcion(id):
+    mongo.db.percepciones.delete_one({'_id': ObjectId(id)})
+    response = jsonify({'message': 'Percepcion' + id + ' Deleted Successfully'})
+    response.status_code = 200
+    return response
+
+@app.route('/percepciones/<_id>', methods=['PUT'])
+def update_percepcion(_id):
+    fecha = request.json['fecha']
+    cuit = request.json['cuit']
+    tipoPercepcion = request.json['tipoPercepcion']
+    tipoComprobante = reques.json['tipoComprobante']
+    nroComprobante = request.json['nroComprobante']
+    letra = reques.json['letra']
+    importe = reques.json['importe']
+
+    if fecha and cuit and nroComprobante and _id:        
+        mongo.db.percepciones.update_one(
+            {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
+            {'$set': {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe}})
+        response = jsonify({'message': 'Percepcion' + _id + 'Updated Successfuly'})
+        response.status_code = 200
+        return response
+    else:
+      return not_found()
+
 
 
 # Testing Route
