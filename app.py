@@ -94,7 +94,7 @@ def create_percepcion():
     fecha = request.json['fecha']
     cuit = request.json['cuit']
     tipoPercepcion =  request.json['tipoPercepcion']
-    tipoComprobante = reques.json['tipoComprobante']
+    tipoComprobante = request.json['tipoComprobante']
     nroComprobante = request.json['nroComprobante']
     letra = request.json['letra']
     importe = request.json['importe']
