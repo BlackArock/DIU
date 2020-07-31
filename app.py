@@ -75,6 +75,7 @@ def delete_retencion(id):
 @app.route('/retenciones/<_id>', methods=['PUT'])
 def update_retenciones(_id):
     fecha = request.json['fecha']
+    fecha_iso = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S.000Z")
     cuit = request.json['cuit']
     tipoRetencion = request.json['tipoRetencion']
     nroConstancia = request.json['nroConstancia']
@@ -83,7 +84,7 @@ def update_retenciones(_id):
     if fecha and cuit and nroConstancia and _id:        
         mongo.db.retenciones.update_one(
             {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
-            {'$set': {'fecha': fecha, 'cuit': cuit, 'tipoRetencion': tipoRetencion, 'nroConstancia': nroConstancia, 'importe': importe}})
+            {'$set': {'fecha': fecha_iso, 'cuit': cuit, 'tipoRetencion': tipoRetencion, 'nroConstancia': nroConstancia, 'importe': importe}})
         response = jsonify({'message': 'Retencion' + _id + 'Updated Successfuly'})
         response.status_code = 200
         return response
@@ -150,6 +151,7 @@ def delete_percepcion(id):
 @app.route('/percepciones/<_id>', methods=['PUT'])
 def update_percepcion(_id):
     fecha = request.json['fecha']
+    fecha_iso = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S.000Z")
     cuit = request.json['cuit']
     tipoPercepcion = request.json['tipoPercepcion']
     tipoComprobante = reques.json['tipoComprobante']
@@ -160,7 +162,7 @@ def update_percepcion(_id):
     if fecha and cuit and nroComprobante and _id:        
         mongo.db.percepciones.update_one(
             {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
-            {'$set': {'fecha': ISODate(fecha), 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe}})
+            {'$set': {'fecha': fecha_iso, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe}})
         response = jsonify({'message': 'Percepcion ' + _id + 'Updated Successfuly'})
         response.status_code = 200
         return response
