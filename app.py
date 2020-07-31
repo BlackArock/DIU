@@ -6,7 +6,9 @@ from flask import Flask, jsonify, request, Response
 from flask_pymongo import PyMongo
 from bson import json_util
 from bson.objectid import ObjectId
+import datetime
 import json
+
 
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://LitoralDev:calculus864@litoraldev.mooo.com:27047/diu"
@@ -21,13 +23,14 @@ mongo = PyMongo(app)
 @app.route('/retenciones', methods=['POST'])
 def create_retencion():
     fecha = request.json['fecha']
+    fecha_iso = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S.000Z")
     tipoRetencion =  request.json['tipoRetencion']
     cuit = request.json['cuit']
     nroConstancia = request.json['nroConstancia']
     importe = request.json['importe']
     if fecha and cuit and nroConstancia:
         id = mongo.db.retenciones.insert(
-            {'fecha': fecha, 'tipoRetencion': tipoRetencion, 'cuit': cuit, 'nroConstancia': nroConstancia, 'importe': importe})
+            {'fecha': fecha_iso, 'tipoRetencion': tipoRetencion, 'cuit': cuit, 'nroConstancia': nroConstancia, 'importe': importe})
         response = jsonify({
             '_id': str(id),
             'fecha': fecha,
@@ -64,7 +67,7 @@ def get_retencion_cuit(cuit):
 @app.route('/retenciones/<id>', methods=['DELETE'])
 def delete_retencion(id):
     mongo.db.retenciones.delete_one({'_id': ObjectId(id)})
-    response = jsonify({'message': 'Retencion' + id + ' Deleted Successfully'})
+    response = jsonify({'message': 'Retencion ' + id + ' Deleted Successfully'})
     response.status_code = 200
     return response
 
@@ -92,6 +95,7 @@ def update_retenciones(_id):
 @app.route('/percepciones', methods=['POST'])
 def create_percepcion():
     fecha = request.json['fecha']
+    fecha_iso = datetime.datetime.strptime(fecha, "%Y-%m-%dT%H:%M:%S.000Z")
     cuit = request.json['cuit']
     tipoPercepcion =  request.json['tipoPercepcion']
     tipoComprobante = request.json['tipoComprobante']
@@ -100,7 +104,7 @@ def create_percepcion():
     importe = request.json['importe']
     if fecha and cuit and nroComprobante:
         id = mongo.db.percepciones.insert(
-            {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'tipoComprobante': tipoComprobante,'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe})
+            {'fecha': fecha_iso, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'tipoComprobante': tipoComprobante,'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe})
         response = jsonify({
             '_id': str(id),
             'fecha': fecha,            
@@ -156,8 +160,8 @@ def update_percepcion(_id):
     if fecha and cuit and nroComprobante and _id:        
         mongo.db.percepciones.update_one(
             {'_id': ObjectId(_id['$oid']) if '$oid' in _id else ObjectId(_id)}, 
-            {'$set': {'fecha': fecha, 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe}})
-        response = jsonify({'message': 'Percepcion' + _id + 'Updated Successfuly'})
+            {'$set': {'fecha': ISODate(fecha), 'cuit': cuit, 'tipoPercepcion': tipoPercepcion, 'nroComprobante': nroComprobante, 'letra': letra, 'importe': importe}})
+        response = jsonify({'message': 'Percepcion ' + _id + 'Updated Successfuly'})
         response.status_code = 200
         return response
     else:
