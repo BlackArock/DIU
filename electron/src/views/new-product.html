@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>New Product</title>
+    <link rel="stylesheet" href="./bootstrap.min.css">
+  </head>
+  <body>
+
+    <!-- Interface -->
+    <form class="p-4">
+      <div class="form-group">
+        <input type="text" id="fecha" class="form-control" placeholder="Fecha" autofocus>
+      </div>
+      <div class="form-group">
+        <input type="text" id="cuit" class="form-control" placeholder="CUIT">
+      </div>
+      <h4 class="mb-3">Tipo Percepción IIBB</h4>
+      <div class="d-block my-3">
+        <div class="custom-control custom-radio">
+          <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+          <label class="custom-control-label" for="Reg General Mayorista">Reg Gral Mayorista</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" for="debit">Reg Faena y comer ganado bovino</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" for="paypal">Sec vtas domiciliarias</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+          <label class="custom-control-label" for="paypal">Sec Mayorista Combustibles</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 mb-3">
+          <label for="country">Tipo Comprobante</label>
+          <select class="custom-select d-block w-100" id="country" required>
+            <option value="">Elegir...</option>
+            <option>Factura</option>
+            <option>Recibo</option>
+            <option>Nota de Crédito</option>
+            <option>Nota de Débito</option>
+            <option>Otros</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid country.
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="state">Letra</label>
+          <select class="custom-select d-block w-100" id="state" required>
+            <option value="">Elegir...</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>E</option>
+            <option>M</option>
+          </select>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" id="description" class="form-control" placeholder="Número Comprobate">
+      </div> 
+      <div class="form-group">
+        <input type="text" id="importe" class="form-control" placeholder="Importe">
+      </div>
+      
+      
+      <button class="btn btn-primary btn-block">
+        Guardar
+      </button>
+    </form>
+
+    <!-- Logic -->
+    <script>
+      const { ipcRenderer } = require('electron');
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const nameProduct = document.querySelector('#name').value;
+        const priceProduct = document.querySelector('#price').value;
+        const descProduct = document.querySelector('#description').value;
+
+        const newProduct = {
+          name: nameProduct,
+          price: priceProduct,
+          description: descProduct
+        };
+
+        ipcRenderer.send('product:new', newProduct);
+      });
+
+    </script>
+
+  </body>
+</html>
