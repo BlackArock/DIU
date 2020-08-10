@@ -17,7 +17,7 @@ if(process.env.NODE_ENV !== 'production') {
 app.on('ready', () => {
 
   // The Main Window
-  mainWindow = new BrowserWindow({width: 720, height: 600});
+  mainWindow = new BrowserWindow({width: 1024, height: 800});
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'views/index.html'),
@@ -40,14 +40,14 @@ app.on('ready', () => {
 
 function createNewProductWindow() {
   newProductWindow = new BrowserWindow({
-    width: 400,
-    height: 330,
-    title: 'Add A New Product'
+    width: 500,
+    height: 730,
+    title: 'Agregar Retemcion'
   });
   newProductWindow.setMenu(null);
 
   newProductWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'views/new-product.html'),
+    pathname: path.join(__dirname, 'views/nueva-retencion.html'),
     protocol: 'file',
     slashes: true
   }));
