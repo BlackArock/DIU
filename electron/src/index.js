@@ -5,6 +5,8 @@ const path = require('path');
 
 let mainWindow;
 let newProductWindow;
+let cargarPercepcion;
+
 
 // Reload in Development for Browser Windows
 if(process.env.NODE_ENV !== 'production') {
@@ -37,11 +39,11 @@ app.on('ready', () => {
 
 });
 
-
+//Ventana CargarRetencion
 function createNewProductWindow() {
   newProductWindow = new BrowserWindow({
-    width: 500,
-    height: 730,
+    width: 510,
+    height: 760,
     title: 'Agregar Retemcion'
   });
   newProductWindow.setMenu(null);
@@ -56,6 +58,28 @@ function createNewProductWindow() {
   });
 }
 
+//ventanCargaPercepcion
+function crearCargarPercepcion() {
+  cargarPercepcion = new BrowserWindow({
+    width: 510,
+    height: 820,
+    title: 'Agregar Percepcion'
+  });
+  cargarPercepcion.setMenu(null);
+
+  cargarPercepcion.loadURL(url.format({
+    pathname: path.join(__dirname, 'views/nueva-percepcion.html'),
+    protocol: 'file',
+    slashes: true
+  })); 
+  cargarPercepcion.on('closed', () => {
+    cargarPercepcion = null;
+  });
+
+
+}
+
+
 // Ipc Renderer Events
 ipcMain.on('product:new', (e, newProduct) => {
   // send to the Main Window
@@ -68,13 +92,20 @@ ipcMain.on('product:new', (e, newProduct) => {
 // Menu Template
 const templateMenu = [
   {
-    label: 'File',
+    label: 'Archivo',
     submenu: [
       {
-        label: 'New Product',
-        accelerator: 'Ctrl+N',
+        label: 'Nueva Retencion',
+        accelerator: 'Ctrl+R',
         click() {
           createNewProductWindow();
+        }
+      },
+      {
+        label: 'Nueva Percepcion',
+        accelerator: 'Ctrl+P',
+        click() {
+          crearCargarPercepcion();
         }
       },
       {
