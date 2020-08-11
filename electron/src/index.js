@@ -42,13 +42,8 @@ app.on('ready', () => {
 //Ventana CargarRetencion
 function createNewProductWindow() {
   newProductWindow = new BrowserWindow({
-<<<<<<< HEAD
-    width: 510,
-    height: 760,
-=======
     width: 500,
     height: 820,
->>>>>>> b0f2dc2083c674ce0e5e837ce26645e171ee373d
     title: 'Agregar Retemcion'
   });
   newProductWindow.setMenu(null);
