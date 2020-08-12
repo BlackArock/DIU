@@ -43,7 +43,7 @@ app.on('ready', () => {
 function createNewProductWindow() {
   newProductWindow = new BrowserWindow({
     width: 500,
-    height: 820,
+    height: 720,
     title: 'Agregar Retemcion'
   });
   newProductWindow.setMenu(null);

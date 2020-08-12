@@ -7,19 +7,18 @@
   </head>
   <body>
     <!-- Interface -->
-    <form class="p-2" id="retencionForm">
+    <form class="p-2" id="formRetencion">
       <div class="form-group col-md-2">
         <label for="example-date-input" class="p-2">Fecha</label>
-        <input class="form-control" type="date" value="" id="fecha" autofocus>
+        <input class="form-control" type="date" value="" id="fechaRetencion" autofocus>
         </div>
       <div class="form-group col-md-2">
         <label for="d-cuit">CUIT</label>
-        <input type="text" id="cuit" class="form-control" placeholder="CUIT">
+        <input type="text" class="form-control" placeholder="CUIT" id="cuitRetencion">
         <small id="d-cuit-help" class="form-text text-muted">Ingrese CUIT sin guiones ni espacios.</small>
       </div>
       <h5 class="mb-2">Tipo Retencion</h5>
-        <fieldset class="form-group"> 
-
+        <fieldset class="form-group">
           <div class="form-check" id="gridRadios1">
             <input class="form-check-input" type="radio" name="sector" id="sector" value="1" checked>
             <label class="form-check-label" for="gridRadios1">
@@ -35,13 +34,13 @@
 
         <div class="form-group col-md-2">
             <label for="example-date-input" class="p-1">Número Comprobante</label>
-            <input type="text" id="numeroComprobante" class="form-control" placeholder="Número Comprobate">
+            <input type="text" class="form-control" placeholder="Número Comprobate" id="numeroComprobanteRetencion">
             <small id="d-numero-comprobante-help" class="form-text text-muted">Ingrese el número de comprobante.</small>
         </div> 
       </fieldset>      
       <div class="form-group col-md-2">
         <label for="example-date-input" class="p-1">Importe</label>
-        <input type="text" id="importe" class="form-control" placeholder="Importe">
+        <input type="text" class="form-control" placeholder="Importe" id="importeRetencion">
         <small id="d-importe-help" class="form-text text-muted">Ingrese el monto de la retencion.</small>
       </div>
       <button class="btn btn-primary btn-block" type="submit">
@@ -49,8 +48,12 @@
       </button>
     </form>
 
+    <ul id="listRetencion"></ul>
+
     <!-- Logic -->
-    <script>
+    <script src="src/ui/app.js"></script>
+    <!-- <script>
+      
       const { ipcRenderer } = require('electron');
 
       const form = document.querySelector('form');
@@ -70,7 +73,7 @@
         ipcRenderer.send('product:new', newProduct);
       });
 
-    </script>
+    </script> -->
 
   </body>
 </html>
