@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^3.1.13"
+    "electron": "^3.1.13",
+    "mongodb": "^3.6.0",
+    "mongoose": "^5.9.28"
   },
   "devDependencies": {
     "electron-reload": "^1.5.0"

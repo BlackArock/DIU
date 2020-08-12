@@ -7,7 +7,7 @@
   </head>
   <body>
     <!-- Interface -->
-    <form class="p-2">
+    <form class="p-2" id="retencionForm">
       <div class="form-group col-md-2">
         <label for="example-date-input" class="p-2">Fecha</label>
         <input class="form-control" type="date" value="" id="fecha" autofocus>
@@ -17,64 +17,34 @@
         <input type="text" id="cuit" class="form-control" placeholder="CUIT">
         <small id="d-cuit-help" class="form-text text-muted">Ingrese CUIT sin guiones ni espacios.</small>
       </div>
-      <h5 class="mb-2">Tipo Percepción IIBB</h5>
-      <div class="d-block my-2">
-        <div class="custom-control custom-radio">
-          <input id="rgm" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-          <label class="custom-control-label" for="Reg General Mayorista">Reg Gral Mayorista</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="rfcgb" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="rfcgb">Reg Faena y comer ganado bovino</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="svd">Sec vtas domiciliarias</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="smc">Sec Mayorista Combustibles</label>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-2">
-          <select class="custom-select d-block w-40" id="TipoComprobante" required>
-            <option value="">Tipo Comprobante</option>
-            <option>Factura</option>
-            <option>Recibo</option>
-            <option>Nota de Crédito</option>
-            <option>Nota de Débito</option>
-            <option>Otros</option>
-          </select>
-          <div class="invalid-feedback">
-            Por favor seleccione un tipo de comprobante.
+      <h5 class="mb-2">Tipo Retencion</h5>
+        <fieldset class="form-group"> 
+
+          <div class="form-check" id="gridRadios1">
+            <input class="form-check-input" type="radio" name="sector" id="sector" value="1" checked>
+            <label class="form-check-label" for="gridRadios1">
+              Sector Tarjetas
+            </label>
           </div>
-        </div>
-        <div class="form-group col-md-2">
-          <select class="custom-select d-block w-40" id="Letra" required>
-            <option value="">Letra</option>
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-            <option>E</option>
-            <option>M</option>
-          </select>
-          <div class="invalid-feedback">
-            Por favor seleccione un tipo de letra.
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="sector" id="sector" value="2">
+            <label class="form-check-label" for="gridRadios1">
+              Sector Privado
+            </label>
           </div>
-        </div>
-      </div>
-      <div class="form-group col-md-2">
-        <label for="example-date-input" class="p-1">Número Comprobante</label>
-        <input type="text" id="description" class="form-control" placeholder="Número Comprobate">
-        <small id="d-numero-comprobante-help" class="form-text text-muted">Ingrese el número de comprobante.</small>
-      </div> 
+
+        <div class="form-group col-md-2">
+            <label for="example-date-input" class="p-1">Número Comprobante</label>
+            <input type="text" id="numeroComprobante" class="form-control" placeholder="Número Comprobate">
+            <small id="d-numero-comprobante-help" class="form-text text-muted">Ingrese el número de comprobante.</small>
+        </div> 
+      </fieldset>      
       <div class="form-group col-md-2">
         <label for="example-date-input" class="p-1">Importe</label>
         <input type="text" id="importe" class="form-control" placeholder="Importe">
         <small id="d-importe-help" class="form-text text-muted">Ingrese el monto de la retencion.</small>
       </div>
-      <button class="btn btn-primary btn-block">
+      <button class="btn btn-primary btn-block" type="submit">
         Guardar
       </button>
     </form>

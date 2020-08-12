@@ -16,24 +16,27 @@
         <input type="text" id="cuit" class="form-control" placeholder="CUIT">
       </div>
       <h4 class="mb-1">Tipo Percepción IIBB</h4>
-      <div class="d-block my-1">
-        <div class="custom-control custom-radio">
-          <input id="rgm" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-          <label class="custom-control-label" for="Reg General Mayorista">Reg Gral Mayorista</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="rfcgb" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="rfcgb">Reg Faena y comer ganado bovino</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="paypal">Sec vtas domiciliarias</label>
-        </div>
-        <div class="custom-control custom-radio">
-          <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-          <label class="custom-control-label" for="paypal">Sec Mayorista Combustibles</label>
-        </div>
-      </div>
+      <fieldset class="form-group" id="payment"> 
+      
+      
+          <div class="form-check" >
+            <input id="pay1" value="1" name="paymentMethod" type="radio" class="form-check-input" checked >
+            <label class="form-check-label" for="percepcion">Reg Gral Mayorista</label>
+          </div>
+          <div class="form-check">
+            <input id="pay2" value="2" name="paymentMethod" type="radio" class="form-check-input" >
+            <label class="form-check-label" for="percepcion">Reg Faena y comer ganado bovino</label>
+          </div>
+          <div class="form-check">
+            <input id="pay3" value="3" name="paymentMethod" type="radio" class="form-check-input" >
+            <label class="form-check-label" for="percepcion">Sec vtas domiciliarias</label>
+          </div>
+          <div class="form-check">
+            <input id="pay4" value="4" name="paymentMethod" type="radio" class="form-check-input" >
+            <label class="form-check-label" for="percepcion">Sec Mayorista Combustibles</label>
+          </div>
+ 
+    </fieldset>
       <div class="row">
         <div class="col-md-1 mb-1">
           <label for="country">Tipo Comprobante</label>

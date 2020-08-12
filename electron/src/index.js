@@ -19,7 +19,7 @@ if(process.env.NODE_ENV !== 'production') {
 app.on('ready', () => {
 
   // The Main Window
-  mainWindow = new BrowserWindow({width: 1068, height: 840});
+  mainWindow = new BrowserWindow({width: 1024, height: 800});
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'views/index.html'),
