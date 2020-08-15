@@ -1,12 +1,12 @@
 const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 
+
 const url = require('url');
 const path = require('path');
 
 let mainWindow;
 let newProductWindow;
 let cargarPercepcion;
-
 
 // Reload in Development for Browser Windows
 if(process.env.NODE_ENV !== 'production') {
@@ -15,17 +15,36 @@ if(process.env.NODE_ENV !== 'production') {
   });
 }
 
+app.whenReady().then(() => {
+  const { net } = require('electron')
+  const request = net.request({
+    method: 'GET',
+    protocol: 'http:',
+    hostname: 'litoraldev.mooo.com',
+    port: 27050,
+    path: '/percepciones'
+  })
+  request.on('response', (response) => {
+    console.log(`STATUS: ${response.statusCode}`)
+    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
+    response.on('data', (chunk) => {
+      console.log(`BODY: ${chunk}`)
+    })
+    response.on('end', () => {
+      console.log('No hay mas data en response.')
+    })
+  })
+  request.end()
+});
 
 app.on('ready', () => {
-
-  // The Main Window
+    // The Main Window
   mainWindow = new BrowserWindow({width: 1024, height: 800});
-
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'views/index.html'),
     protocol: 'file',
     slashes: true
-  }))
+  }));
 
   // Menu
   const mainMenu = Menu.buildFromTemplate(templateMenu);
@@ -36,6 +55,14 @@ app.on('ready', () => {
   mainWindow.on('closed', () => {
     app.quit();
   });
+  
+  //const request = net.request({
+  //  method: 'GET',
+  //  protocol: 'http:',
+  //  hostname: 'litoraldev.mooo.com',
+  //  port: 27050,
+   // path: '/retenciones'
+  //})
 
 });
 
@@ -75,8 +102,6 @@ function crearCargarPercepcion() {
   cargarPercepcion.on('closed', () => {
     cargarPercepcion = null;
   });
-
-
 }
 
 

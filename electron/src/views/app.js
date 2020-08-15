@@ -13,6 +13,8 @@ let retenciones = [];
 
 ipcRenderer.send("get-retenciones");
 
+
+
 formRetencion.addEventListener("submit", async e => {
     e.preventDefault();
     const retencion = {
