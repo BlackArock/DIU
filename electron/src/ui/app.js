@@ -30,3 +30,13 @@ formRetencion.addEventListener("submit", async e => {
     }
     formRetencion.reset();
 });
+
+let url = "litoraldev.mooo.com:27050/retenciones"
+
+function httpGet(url) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", url, false ); // false for synchronous request
+    xmlHttp.send( null );
+    console.log(xmlHttp.responseText)
+    return xmlHttp.responseText;
+}
